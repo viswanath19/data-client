@@ -1,23 +1,54 @@
-import logo from './logo.svg';
 import './App.css';
+import { Transfer } from 'antd';
+import React, {useState, useEffect} from 'react'
 
 function App() {
+
+  const [mockData, setMockData] = useState([]);
+  const [targetKeys, setTargetKeys] = useState([]);
+
+  const getMock = () => {
+    const tempMockData = [
+      {
+        key: 'name',
+        title: 'Name'
+      },
+      {
+        key: 'email',
+        title: 'Email'
+      },
+      {
+        key: 'mobile',
+        title: 'Phone Numbers'
+      },
+    ]
+    setMockData(tempMockData);
+  };
+
+  useEffect(() => {
+    getMock();
+  },[]);
+
+  const filterOption = (inputValue, option) => option.description.indexOf(inputValue) > -1;
+
+  const handleChange = (newTargetKeys) => {
+    setTargetKeys(newTargetKeys);
+  };
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Data Generator</h1>
+      <div className='selection-grid'>
+        <h4>Select the Data Generator Items</h4>
+        <Transfer
+          dataSource={mockData}
+          showSearch
+          filterOption={filterOption}
+          targetKeys={targetKeys}
+          onChange={handleChange}
+          render={(item) => item.title}
+        />
+      </div>
     </div>
   );
 }
