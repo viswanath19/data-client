@@ -1,11 +1,13 @@
 import './App.css';
-import { Transfer } from 'antd';
+import { Transfer, Select, Button } from 'antd';
 import React, {useState, useEffect} from 'react'
 
 function App() {
 
   const [mockData, setMockData] = useState([]);
   const [targetKeys, setTargetKeys] = useState([]);
+  const [rows, setRows] = useState(0);
+  const [returnFormat, setReturnFormat] = useState('');
 
   const getMock = () => {
     const tempMockData = [
@@ -49,6 +51,65 @@ function App() {
           render={(item) => item.title}
         />
       </div>
+      <div className='selection-rows'>
+        <Select
+          showSearch
+          style={{ width: 350 }}
+          placeholder="Search Number of Rows"
+          optionFilterProp="children"
+          filterOption={(input, option) => (option?.label ?? '').includes(input)}
+          filterSort={(optionA, optionB) =>
+            (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+          }
+          onChange={(value) => setRows(value)}
+          options={[
+            {
+              value: 50,
+              label: '50',
+            },
+            {
+              value: 100,
+              label: '100',
+            },
+            {
+              value: 150,
+              label: '150',
+            },
+            {
+              value: 200,
+              label: '200',
+            },
+            {
+              value: 250,
+              label: '250',
+            },
+          ]}
+        />
+      </div>
+      <div className='selection-return-format'>
+        <Select
+          showSearch
+          style={{ width: 350 }}
+          placeholder="Select Format"
+          optionFilterProp="children"
+          filterOption={(input, option) => (option?.label ?? '').includes(input)}
+          filterSort={(optionA, optionB) =>
+            (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+          }
+          onChange={(value) => setReturnFormat(value)}
+          options={[
+            {
+              value: 'HTML',
+              label: 'HTML',
+            },
+            {
+              value: 'JSON',
+              label: 'JSON',
+            }
+          ]}
+        />
+      </div>
+      <div className='generate-button'><Button type="primary" disabled={targetKeys.length === 0 || rows === 0 || returnFormat === ''}>Generate Data</Button></div>
     </div>
   );
 }

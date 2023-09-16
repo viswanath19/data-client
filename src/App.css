@@ -17,6 +17,14 @@
   text-decoration: underline;
 }
 
+.selection-rows {
+  padding: 20px;
+}
+
+.generate-button {
+  padding: 10px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
