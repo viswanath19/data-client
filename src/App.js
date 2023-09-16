@@ -39,7 +39,7 @@ function App() {
   };
 
   const generateRows = () => {
-    fetch('https://datagenerator.onrender.com/generateNames').then(res => res.text()).then(data => setPreviewData(data)).catch(err => console.log("error occured",err));
+    fetch(`https://datagenerator.onrender.com/generateNames?rows=${rows}&cols=${targetKeys}`).then(res => res.text()).then(data => setPreviewData(data)).catch(err => console.log("error occured",err));
   }
   
   return (
