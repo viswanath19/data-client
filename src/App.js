@@ -59,7 +59,7 @@ function App() {
           optionFilterProp="children"
           filterOption={(input, option) => (option?.label ?? '').includes(input)}
           filterSort={(optionA, optionB) =>
-            (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+            optionA.value > optionB.value
           }
           onChange={(value) => setRows(value)}
           options={[
