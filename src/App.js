@@ -8,6 +8,7 @@ function App() {
   const [targetKeys, setTargetKeys] = useState([]);
   const [rows, setRows] = useState(0);
   const [returnFormat, setReturnFormat] = useState('');
+  const [previewData, setPreviewData] = useState(null);
 
   const getMock = () => {
     const tempMockData = [
@@ -36,6 +37,10 @@ function App() {
   const handleChange = (newTargetKeys) => {
     setTargetKeys(newTargetKeys);
   };
+
+  const generateRows = () => {
+    fetch('https://datagenerator.onrender.com/generateNames').then(res => res.text()).then(data => setPreviewData(data)).catch(err => console.log("error occured",err));
+  }
   
   return (
     <div className="App">
@@ -109,7 +114,10 @@ function App() {
           ]}
         />
       </div>
-      <div className='generate-button'><Button type="primary" disabled={targetKeys.length === 0 || rows === 0 || returnFormat === ''}>Generate Data</Button></div>
+      <div className='generate-button'><Button onClick={() => generateRows()} type="primary" disabled={targetKeys.length === 0 || rows === 0 || returnFormat === ''}>Generate Data</Button></div>
+      <div className='preview-html'>
+          {previewData !== null && <div dangerouslySetInnerHTML={{__html:previewData}}></div>}
+      </div>
     </div>
   );
 }
